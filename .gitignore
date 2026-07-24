@@ -1,0 +1,22 @@
+# Ignore everything
+*
+
+# Keep .gitignore
+!/.gitignore
+
+# Keep selected root files
+!/package.json
+!/package-lock.json
+!/README.md
+!/AGENTS.md
+!/LICENSE
+
+# Allow these directories and everything inside them
+!/extensions/
+!/extensions/**
+
+!/intercepted-commands/
+!/intercepted-commands/**
+
+!/themes/
+!/themes/**
