@@ -4,9 +4,7 @@ This repo **is** `~/.pi/agent` — the live config directory for the [pi coding 
 
 ## Git: whitelist, not blacklist
 
-`.gitignore` starts with `*` and re-includes only: `package.json`, `package-lock.json`, `README.md`, `LICENSE`, `extensions/`, `intercepted-commands/`, `themes/`.
-
-Anything else (`settings.json`, `APPEND_SYSTEM.md`, `skills/`, `agents/`, `sessions/`, `auth.json`, ...) is **local-only and untracked**. To track a new file outside the whitelist, edit `.gitignore` first — `git add` alone will silently no-op.
+`.gitignore` starts with `*` and re-includes only an explicit whitelist (see the file itself for the list). Everything else (`settings.json`, `auth.json`, `sessions/`, ...) is **local-only and untracked**. To track a new file, edit `.gitignore` first — `git add` alone will silently no-op.
 
 ## Layout & entrypoints
 
