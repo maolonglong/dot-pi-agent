@@ -15,6 +15,12 @@ Anything else (`settings.json`, `APPEND_SYSTEM.md`, `skills/`, `agents/`, `sessi
 - `extensions/subagent/` — a directory-style extension (`index.ts` entry). Subagents are Markdown with YAML frontmatter (`name`, `description`, `tools`, `model`). Runtime discovery reads `~/.pi/agent/agents/` (user, i.e. the untracked `agents/` at this repo's root — **this is where the real custom agents live**) and `.pi/agents/` (project); project overrides user on name collision. `extensions/subagent/agents/*.md` are only bundled examples, not the active set.
 - `intercepted-commands/` — shell shims prepended to `PATH` by the `uv.ts` extension. `pip`/`pip3`/`poetry` are hard-blocked with uv alternatives; `python`/`python3` redirect through `uv run`. When editing behavior, keep the shim scripts and `uv.ts`'s spawn-time blocking in sync — the shims alone are bypassable via explicit interpreter paths.
 
+## Commits
+
+- Use Conventional Commits: `<type>(<scope>): <summary>` — imperative, <= 72 chars, no trailing period, no sign-offs.
+- **Always write a commit body** explaining the *why* (bullets welcome), not just the *what*.
+- Only commit, never push. Stage only intended files — respect the whitelist `.gitignore`.
+
 ## Don'ts
 
 - **Don't edit auto-generated extensions** — regenerate them with their owning tool instead:
