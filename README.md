@@ -15,6 +15,18 @@ APPEND_SYSTEM.md        Extra system-prompt instructions appended to every sessi
 settings.json           Personal pi settings (model, theme, packages, subagents...)
 ```
 
+## Recommended plugins (installed via `pi install`)
+
+These are not tracked in this repo — they're installed as npm packages and picked up from `~/.pi/agent/npm/node_modules`:
+
+```bash
+pi install npm:@ff-labs/pi-fff               # FFF-powered fuzzy file & content search
+pi install npm:@juicesharp/rpiv-web-tools    # web search & fetch with pluggable providers
+pi install npm:@juicesharp/rpiv-todo         # live todo overlay that survives /reload & compaction
+pi install npm:@juicesharp/rpiv-btw          # /btw one-off side question without polluting the conversation
+pi install npm:@juicesharp/rpiv-ask-user-question  # structured questionnaire tool with typed options
+```
+
 ## Credits / sources
 
 - [mitsuhiko/agent-stuff](https://github.com/mitsuhiko/agent-stuff)
