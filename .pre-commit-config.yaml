@@ -17,15 +17,16 @@ repos:
       - id: check-executables-have-shebangs
       - id: detect-private-key
 
+  # Official gitleaks hook (https://github.com/gitleaks/gitleaks).
+  # language: golang — prek builds the pinned rev with the Go toolchain,
+  # independent of any system-installed gitleaks version.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
   - repo: local
     hooks:
-      # Secret scanning (gitleaks must be installed, e.g. via nix/homebrew).
-      - id: gitleaks
-        name: gitleaks
-        language: system
-        entry: gitleaks protect --staged --verbose
-        pass_filenames: false
-
       # Type-check pi extensions.
       - id: typecheck
         name: tsc --noEmit
