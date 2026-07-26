@@ -5,6 +5,7 @@ This repo **is** `~/.pi/agent` — the live config directory for the [pi coding 
 ## Verification
 
 - `npm run typecheck` — type-checks `extensions/` with `tsc --noEmit` (see `tsconfig.json`). Run it after editing any extension. `typescript` and `@types/node` are devDependencies; `npm install` restores them.
+- `prek run --all-files` — runs the pre-commit hooks (whitespace/JSON/key checks, gitleaks secret scan, typecheck). Hooks are installed via `prek install` (writes `.git/hooks/pre-commit`); re-run it after cloning. `prek` and `gitleaks` must be on PATH.
 
 ## Git: whitelist, not blacklist
 

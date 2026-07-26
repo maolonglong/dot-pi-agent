@@ -1,0 +1,35 @@
+# prek (https://github.com/j178/prek) — fast pre-commit compatible hooks.
+# Run manually: `prek run --all-files`
+
+repos:
+  # prek's built-in Rust implementations (offline, zero-setup fast path).
+  - repo: builtin
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+      - id: check-json
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      # Secret scanning (gitleaks must be installed, e.g. via nix/homebrew).
+      - id: gitleaks
+        name: gitleaks
+        language: system
+        entry: gitleaks protect --staged --verbose
+        pass_filenames: false
+
+      # Type-check pi extensions.
+      - id: typecheck
+        name: tsc --noEmit
+        language: system
+        entry: npm run typecheck
+        pass_filenames: false
+        files: \.ts$

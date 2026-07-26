@@ -8,6 +8,7 @@
 !/package.json
 !/package-lock.json
 !/tsconfig.json
+!/.pre-commit-config.yaml
 !/README.md
 !/AGENTS.md
 !/LICENSE
