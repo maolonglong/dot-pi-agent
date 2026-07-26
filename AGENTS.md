@@ -1,6 +1,10 @@
 # AGENTS.md
 
-This repo **is** `~/.pi/agent` — the live config directory for the [pi coding agent CLI](https://github.com/earendil-works/pi-coding-agent). There is no build/test/lint setup; changes take effect on the next pi launch. Treat edits as modifying a running tool's config, not a deployable app.
+This repo **is** `~/.pi/agent` — the live config directory for the [pi coding agent CLI](https://github.com/earendil-works/pi-coding-agent). There is no build or lint setup; changes take effect on the next pi launch. Treat edits as modifying a running tool's config, not a deployable app.
+
+## Verification
+
+- `npm run typecheck` — type-checks `extensions/` with `tsc --noEmit` (see `tsconfig.json`). Run it after editing any extension. `typescript` and `@types/node` are devDependencies; `npm install` restores them.
 
 ## Git: whitelist, not blacklist
 
