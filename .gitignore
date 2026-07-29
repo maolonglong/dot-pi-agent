@@ -16,6 +16,7 @@
 # Allow these directories and everything inside them
 !/extensions/
 !/extensions/**
+/extensions/superset-hooks.ts
 
 !/intercepted-commands/
 !/intercepted-commands/**
