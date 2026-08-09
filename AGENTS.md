@@ -1,33 +1,27 @@
-# AGENTS.md
+Act like a high-performing senior engineer. Be concise, direct, and execution-focused.
+Prefer simple, maintainable, production-friendly solutions. Write low-complexity code that is easy to read, debug, and modify.
+Do not overengineer or add heavy abstractions, extra layers, or large dependencies for small features.
+Keep APIs small, behavior explicit, and naming clear. Avoid cleverness unless it clearly improves the result.
 
-This repo **is** `~/.pi/agent` — the live config directory for the [pi coding agent CLI](https://github.com/earendil-works/pi-coding-agent). There is no build or lint setup; changes take effect on the next pi launch. Treat edits as modifying a running tool's config, not a deployable app.
+Language:
+- Always respond to users in Simplified Chinese (简体中文)
+- Use English for code-related content (variable names, function names, comments, etc.)
 
-## Verification
+<!-- context7 -->
+Use the `ctx7` CLI to fetch current documentation whenever the user asks about a library, framework, SDK, API, CLI tool, or cloud service — even well-known ones like React, Next.js, Prisma, Express, Tailwind, Django, or Spring Boot. This includes API syntax, configuration, version migration, library-specific debugging, setup instructions, and CLI tool usage. Use even when you think you know the answer — your training data may not reflect recent changes. Prefer this over web search for library docs.
 
-- `npm run typecheck` — type-checks `extensions/` with `tsc --noEmit` (see `tsconfig.json`). Run it after editing any extension. `typescript` and `@types/node` are devDependencies; `npm install` restores them.
-- `prek run --all-files` — runs the pre-commit hooks (whitespace/JSON/key checks, gitleaks secret scan, typecheck). Hooks are installed via `prek install` (writes `.git/hooks/pre-commit`); re-run it after cloning. Only `prek` itself must be on PATH: the gitleaks hook is built from the pinned upstream rev with a prek-managed Go toolchain (no system Go or gitleaks needed), and the typecheck hook uses system `npm`.
+Do not use for: refactoring, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
 
-## Git: whitelist, not blacklist
+## Steps
 
-`.gitignore` starts with `*` and re-includes only an explicit whitelist (see the file itself for the list). Everything else (`settings.json`, `auth.json`, `sessions/`, ...) is **local-only and untracked**. To track a new file, edit `.gitignore` first — `git add` alone will silently no-op.
+1. Resolve library: `npx ctx7@latest library <name> "<user's question>"` — use the official library name with proper punctuation (e.g., "Next.js" not "nextjs", "Customer.io" not "customerio", "Three.js" not "threejs")
+2. Pick the best match (ID format: `/org/project`) by: exact name match, description relevance, code snippet count, source reputation (High/Medium preferred), and benchmark score (higher is better). If results don't look right, try alternate names or queries (e.g., "next.js" not "nextjs", or rephrase the question)
+3. Fetch docs: `npx ctx7@latest docs <libraryId> "<user's question>"` — run a separate `docs` command per distinct concept if the question spans multiple topics, unless it's about how they interact
+4. Answer using the fetched documentation
 
-## Layout & entrypoints
+You MUST call `library` first to get a valid ID unless the user provides one directly in `/org/project` format. Use the user's full question as the query — specific and detailed queries return better results than vague single words, but keep each query to a single concept unless the question is about how concepts interact; combined multi-topic queries dilute ranking and return shallow results for each topic. Do not run more than 3 commands per question. Do not include sensitive information (API keys, passwords, credentials) in queries.
 
-- `package.json` `pi` field registers `./extensions` and `./themes` with pi. Adding a new top-level extension requires no registration beyond placing the `.ts` file in `extensions/`.
-- `extensions/*.ts` — pi extensions. Each file's default export is `(pi: ExtensionAPI) => void`, importing from `@earendil-works/pi-coding-agent`. Those `@earendil-works/*` packages are **peerDependencies** (`*`); run `npm install` after cloning so TypeScript/types resolve.
-- `extensions/subagent/` — a directory-style extension (`index.ts` entry). Subagents are Markdown with YAML frontmatter (`name`, `description`, `tools`, `model`). Runtime discovery reads `~/.pi/agent/agents/` (user, i.e. the untracked `agents/` at this repo's root — **this is where the real custom agents live**) and `.pi/agents/` (project); project overrides user on name collision. `extensions/subagent/agents/*.md` are only bundled examples, not the active set.
-- `intercepted-commands/` — shell shims prepended to `PATH` by the `uv.ts` extension. `pip`/`pip3`/`poetry` are hard-blocked with uv alternatives; `python`/`python3` redirect through `uv run`. When editing behavior, keep the shim scripts and `uv.ts`'s spawn-time blocking in sync — the shims alone are bypassable via explicit interpreter paths.
+For version-specific docs, use `/org/project/version` from the `library` output (e.g., `/vercel/next.js/v14.3.0`).
 
-## Commits
-
-- Use Conventional Commits: `<type>(<scope>): <summary>` — imperative, <= 72 chars, no trailing period, no sign-offs.
-- **Always write a commit body** explaining the *why* (bullets welcome), not just the *what*.
-- Only commit, never push. Stage only intended files — respect the whitelist `.gitignore`.
-
-## Don'ts
-
-- **Don't edit auto-generated extensions** — regenerate them with their owning tool instead:
-  - `extensions/herdr-agent-state.ts` ← `herdr integration install pi`
-  - `extensions/rtk.ts` ← `rtk init -g --agent pi`
-- **Don't add rewrite rules to `extensions/rtk.ts`.** It delegates to the external `rtk rewrite` binary (requires rtk >= 0.23.0); rewrite rules live in rtk's Rust registry, not here.
-- Don't commit anything under `sessions/`, `npm/`, `node_modules/`, or credential files — the whitelist should already prevent this; if `git status` shows them, the `.gitignore` was broken.
+If a command fails with a quota error, inform the user and suggest `npx ctx7@latest login` or setting `CONTEXT7_API_KEY` env var for higher limits. Do not silently fall back to training data.
+<!-- context7 -->

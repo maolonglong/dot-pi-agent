@@ -16,6 +16,8 @@
 # Allow these directories and everything inside them
 !/extensions/
 !/extensions/**
+/extensions/herdr-agent-state.ts
+/extensions/rtk.ts
 /extensions/superset-hooks.ts
 
 !/intercepted-commands/
