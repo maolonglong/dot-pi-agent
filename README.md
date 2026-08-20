@@ -25,6 +25,7 @@ pi install npm:@juicesharp/rpiv-web-tools    # web search & fetch with pluggable
 pi install npm:@juicesharp/rpiv-todo         # live todo overlay that survives /reload & compaction
 pi install npm:@juicesharp/rpiv-btw          # /btw one-off side question without polluting the conversation
 pi install npm:@juicesharp/rpiv-ask-user-question  # structured questionnaire tool with typed options
+pi install npm:@tintinweb/pi-subagents            # Claude Code-style autonomous sub-agents
 ```
 
 ## Credits / sources
