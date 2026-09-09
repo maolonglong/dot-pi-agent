@@ -23,5 +23,8 @@
 !/intercepted-commands/
 !/intercepted-commands/**
 
+!/tests/
+!/tests/**
+
 !/themes/
 !/themes/**
