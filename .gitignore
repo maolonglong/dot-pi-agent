@@ -12,6 +12,7 @@
 !/README.md
 !/AGENTS.md
 !/LICENSE
+!/mcp.json
 
 # Allow these directories and everything inside them
 !/extensions/

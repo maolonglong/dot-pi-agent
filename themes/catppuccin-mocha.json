@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/earendil-works/pi/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
   "name": "catppuccin-mocha",
+  "appearance": "dark",
   "vars": {
     "rosewater": "#f5e0dc",
     "flamingo": "#f2cdcd",
@@ -32,20 +33,25 @@
   "colors": {
     "accent": "mauve",
 
-    "border": "surface2",
+    "border": "overlay0",
     "borderAccent": "mauve",
-    "borderMuted": "surface0",
+    "borderMuted": "surface1",
 
     "success": "green",
     "error": "red",
     "warning": "yellow",
 
     "muted": "subtext0",
-    "dim": "overlay0",
+    "dim": "overlay1",
     "text": "text",
     "thinkingText": "subtext1",
 
-    "selectedBg": "surface1",
+    "selectedBg": "#3b3d4f",
+
+    "scrollbarTrack": "surface1",
+    "scrollbarThumb": "overlay1",
+    "searchMatchBg": "#4e494a",
+    "searchMatchText": "yellow",
 
     "userMessageBg": "surface0",
     "userMessageText": "text",
@@ -55,8 +61,8 @@
     "customMessageLabel": "pink",
 
     "toolPendingBg": "mantle",
-    "toolSuccessBg": "surface0",
-    "toolErrorBg": "surface0",
+    "toolSuccessBg": "#2e363c",
+    "toolErrorBg": "#3c2d3f",
     "toolTitle": "lavender",
     "toolOutput": "subtext1",
 
@@ -85,7 +91,7 @@
     "syntaxOperator": "sky",
     "syntaxPunctuation": "overlay2",
 
-    "thinkingOff": "surface2",
+    "thinkingOff": "overlay0",
     "thinkingMinimal": "overlay1",
     "thinkingLow": "blue",
     "thinkingMedium": "sapphire",
