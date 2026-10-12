@@ -28,6 +28,24 @@ pi install npm:@juicesharp/rpiv-ask-user-question  # structured questionnaire to
 pi install npm:@tintinweb/pi-subagents            # Claude Code-style autonomous sub-agents
 ```
 
+## Fast mode
+
+Run `/fast` to toggle priority processing for OpenAI models or Magpie models whose IDs start with `codex/`. When active, `fast` appears beside the model in the footer. Supported models send `service_tier: "priority"` when enabled and `"default"` when disabled. Other models receive no changes to this field.
+
+The extension saves the preference in `<agent-dir>/fast.json` after a successful toggle:
+
+```json
+{
+  "enabled": true
+}
+```
+
+The agent directory defaults to `~/.pi/agent` and respects `PI_CODING_AGENT_DIR`. A missing file means disabled. Startup, new sessions, and `/reload` restore the preference and check the current model. Switching to an unsupported model pauses Fast mode; switching back restores it. You can still run `/fast` on an unsupported model to turn off a saved enabled preference.
+
+Invalid configuration disables Fast mode on load and blocks writes until you fix or remove the file. Failed saves keep the current state and report an error. Writes use a temporary file and rename. Multiple Pi processes use the last completed save; other running processes pick it up on a new session or `/reload`.
+
+Run `node --test tests/fast.test.mjs` to check persistence, model eligibility, footer rendering, and write failures. If Pi is installed globally and the test cannot resolve it, set `PI_PACKAGE_DIR` to the installed package directory containing `dist/index.js`.
+
 ## Credits / sources
 
 - [mitsuhiko/agent-stuff](https://github.com/mitsuhiko/agent-stuff)
